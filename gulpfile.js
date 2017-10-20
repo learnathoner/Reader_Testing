@@ -4,7 +4,7 @@ var browserSync = require('browser-sync').create();
 const jshint = require('gulp-jshint');
 
 gulp.task('lint', function() {
-  return gulp.src('src/*.js')
+  return gulp.src('jasmine/spec/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });

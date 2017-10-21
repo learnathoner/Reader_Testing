@@ -69,34 +69,37 @@ $(function() {
      });
     });
 
-    // once loadFeed run, checks that .feed container has .entry inside
-    it('loads feeds', function(done) {
+    // Once loadFeed run, checks that .feed container has .entry inside
+    it('loads feeds', function() {
      const feeds = $('.feed');
      expect(feeds.find('.entry').length).not.toBe(0);
-     done();
    });
   });
 
   // New feed selection Testing
   describe('New Feed Selection', function() {
 
-    let oldTitle,
-        newTitle;
+    let oldFeeds,
+        newFeeds;
 
-    // Initializes title with current title, then loads new feed (1)
+    // Calls loadFeed with allFeeds(0), sets oldFeeds to feed HTML
+    // Calls loadFeed with allFeeds(1), sets newFeeds to feed HTML
     beforeEach(function(done) {
-     oldTitle = $('.header-title').html();
 
-     loadFeed(1, function() {
-       done();
-     });
+      loadFeed(0, function() {
+        oldFeeds = $('.feed').html();
+
+        loadFeed(1, function() {
+          newFeeds = $('.feed').html();
+          done();
+        });
+
+      });
     });
 
-    // When loadFeed changed, stores new Title, and compares for difference
-    it('Should change content', function(done) {
-     newTitle = $('.header-title').html();
-     expect(oldTitle).not.toBe(newTitle);
-     done();
+    // Compares oldFeeds HTML and newfeeds HTML to check for difference
+    it('Should change content', function() {
+     expect(oldFeeds).not.toBe(newFeeds);
     });
   });
 
